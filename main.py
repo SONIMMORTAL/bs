@@ -1,4 +1,8 @@
-import argparse, os, sys, time, requests, json
+import argparse
+import os
+import sys
+import time
+import requests
 
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
 
@@ -20,7 +24,6 @@ def gemini_completion(prompt):
     t0 = time.time()
     url = f"{GEMINI_ENDPOINT}?key={key}"
     r = requests.post(url, headers={"Content-Type": "application/json"}, json=payload, timeout=60)
-    dt = time.time() - t0
     print(f"HTTP status: {r.status_code}")
     print("Raw response:", r.text)
     if r.status_code != 200:
