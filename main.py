@@ -21,7 +21,7 @@ def gemini_completion(prompt):
             }
         ]
     }
-    # t0 = time.time()  # Removed unused variable to fix Ruff lint error
+    # Removed unused t0 = time.time() to fix Ruff F841 lint error
     url = f"{GEMINI_ENDPOINT}?key={key}"
     r = requests.post(url, headers={"Content-Type": "application/json"}, json=payload, timeout=60)
     print(f"HTTP status: {r.status_code}")
