@@ -48,6 +48,7 @@ def main():
     if a.dry_run:
         print(prompt)
         return
+    print("[INFO] Using Gemini Flash 2.0 API for content generation.")
     out = gemini_completion(prompt)
     os.makedirs("out", exist_ok=True)
     with open("out/campaign.md", "w") as f:
