@@ -1,4 +1,6 @@
-import argparse, os, sys
+import argparse
+import os
+import sys
 from openai import OpenAI
 
 MODEL = "meta-llama/llama-4-maverick:free"
