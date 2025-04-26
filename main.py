@@ -1,6 +1,6 @@
 import argparse, os, sys, time, requests, json
 MODEL="meta-llama/llama-4-maverick:free"
-ENDPOINT="https://openrouter.ai/v1/chat/completions"
+ENDPOINT="https://openrouter.ai/api/v1/chat/completions"
 def build_prompt(args):
     return f"Write five fundraising emails and four social captions for the {args.event} on {args.date} in a {args.tone} tone."
 def chat_completion(prompt):
