@@ -17,7 +17,7 @@ def chat_completion(prompt):
     return r.json()["choices"][0]["message"]["content"]
 def main():
     p=argparse.ArgumentParser()
-    p.add_argument("--event",default="Community Gala"); p.add_argument("--date",default="TBD"); p.add_argument("--tone",default="upbeat"); p.add_argument("--dry-run",action="store_true")
+    p.add_argument("--event",default="Community Gala"); p.add_argument("--date",default="2025-05-30"); p.add_argument("--tone",default="enthusiastic and heartfelt"); p.add_argument("--dry-run",action="store_true")
     a=p.parse_args()
     prompt=build_prompt(a)
     if a.dry_run:
