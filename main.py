@@ -1,5 +1,9 @@
-import argparse, os, sys, time, requests, json
-from typing import List, Dict, Any, Optional
+import argparse
+import json
+import os
+import sys
+import time
+import requests
 
 # Constants
 MODEL = "meta-llama/llama-4-maverick:free"
@@ -10,12 +14,7 @@ def build_prompt(args: argparse.Namespace) -> str:
     if args.custom_prompt:
         return args.custom_prompt
     
-    campaign_type = "fundraising emails and social captions"
-    if args.emails_only:
-        campaign_type = "fundraising emails"
-    elif args.social_only:
-        campaign_type = "social media captions"
-    
+    # Build the count string based on what we're generating
     count = f"{args.email_count} fundraising emails" if not args.social_only else ""
     social_count = f"{args.social_count} social captions" if not args.emails_only else ""
     
