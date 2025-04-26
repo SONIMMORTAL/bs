@@ -1,19 +1,31 @@
 import argparse, os, sys, time, requests, json
-MODEL="meta-llama/llama-4-maverick:free"
-ENDPOINT="https://openrouter.ai/v1/chat/completions"
+MODEL = "openai/gpt-3.5-turbo"
+ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
 def build_prompt(args):
     return f"Write five fundraising emails and four social captions for the {args.event} on {args.date} in a {args.tone} tone."
 def chat_completion(prompt):
     key=os.getenv("OPENROUTER_API_KEY")
     if not key:
         sys.exit("missing OPENROUTER_API_KEY")
-    payload={"model":MODEL,"messages":[{"role":"user","content":prompt}]}
+    payload={
+        "model": MODEL,
+        "messages": [{"role": "user", "content": prompt}],
+        "max_tokens": 2000,
+        "temperature": 0.7
+    }
     t0=time.time()
-    r=requests.post(ENDPOINT,headers={"Authorization":f"Bearer {key}","Content-Type":"application/json"},json=payload,timeout=60)
+    headers = {
+        "Authorization": f"Bearer {key}",
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://github.com/kelveloper/nyla-sprint-kelveloper",
+        "X-Title": "Nyla Sprint Fundraising Campaign Generator"
+    }
+    r=requests.post(ENDPOINT, headers=headers, json=payload, timeout=60)
     dt=time.time()-t0
     if r.status_code!=200:
         sys.exit(f"HTTP {r.status_code}: {r.text[:120]}")
     print(f"done in {dt:.2f}s",file=sys.stderr)
+    print("Raw response:", r.text, file=sys.stderr)
     return r.json()["choices"][0]["message"]["content"]
 def main():
     p=argparse.ArgumentParser()
